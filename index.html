@@ -1,70 +1,199 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MEGA CIFRA</title>
 
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            background: #050505;
-            color: white;
-            font-family: monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+```
+<style>
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background: #050505;
+        color: white;
+        font-family: monospace;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-        .caixa {
-            width: 80%;
-            max-width: 700px;
-            padding: 40px;
-            border: 1px solid #333;
-            background: #0b0b0b;
-            text-align: center;
-        }
+    .caixa {
+        width: 80%;
+        max-width: 700px;
+        padding: 40px;
+        border: 1px solid #333;
+        background: #0b0b0b;
+        text-align: center;
+    }
 
-        h1 {
-            font-size: 42px;
-            letter-spacing: 8px;
-        }
+    h1 {
+        font-size: 42px;
+        letter-spacing: 8px;
+    }
 
-        p {
-            color: #aaa;
-            font-size: 17px;
-        }
+    p {
+        color: #aaa;
+        font-size: 17px;
+    }
 
-        button {
-            margin-top: 25px;
-            padding: 12px 30px;
-            background: #111;
-            color: white;
-            border: 1px solid #555;
-            cursor: pointer;
-            font-family: monospace;
-        }
+    input {
+        margin-top: 20px;
+        padding: 12px;
+        width: 70%;
+        background: #050505;
+        color: white;
+        border: 1px solid #555;
+        font-family: monospace;
+        text-align: center;
+    }
 
-        button:hover {
-            background: #222;
-        }
-    </style>
+    button {
+        margin-top: 25px;
+        padding: 12px 30px;
+        background: #111;
+        color: white;
+        border: 1px solid #555;
+        cursor: pointer;
+        font-family: monospace;
+    }
+
+    button:hover {
+        background: #222;
+    }
+
+    #mensagem {
+        margin-top: 20px;
+        color: #777;
+    }
+</style>
+```
+
 </head>
 
 <body>
 
-    <div class="caixa">
-        <h1>MEGA CIFRA</h1>
+```
+<div class="caixa" id="conteudo">
+    <h1>MEGA CIFRA</h1>
 
-        <p>Você foi selecionado.</p>
+    <p>Você foi selecionado.</p>
 
-        <p>O desafio começará em breve...</p>
+    <p>O desafio começará em breve...</p>
 
-        <button onclick="alert('O desafio ainda não começou.')">
-            INICIAR
-        </button>
-    </div>
+    <button onclick="iniciar()">
+        INICIAR
+    </button>
+</div>
+
+
+<script>
+
+    // ==========================================
+    // PERGUNTAS DO DESAFIO
+    // EDITE AQUI
+    // ==========================================
+
+    const perguntas = [
+        {
+            pergunta: "Qual é a resposta da primeira pergunta?",
+            resposta: "minecraft"
+        },
+
+        {
+            pergunta: "Segunda pergunta vai aqui.",
+            resposta: "resposta2"
+        },
+
+        {
+            pergunta: "Terceira pergunta vai aqui.",
+            resposta: "resposta3"
+        }
+    ];
+
+
+    // ==========================================
+    // NÃO PRECISA MEXER DAQUI PARA BAIXO
+    // ==========================================
+
+    let perguntaAtual = 0;
+
+
+    function iniciar() {
+        mostrarPergunta();
+    }
+
+
+    function mostrarPergunta() {
+
+        const p = perguntas[perguntaAtual];
+
+        document.getElementById("conteudo").innerHTML = `
+            <h1>MEGA CIFRA</h1>
+
+            <p>${p.pergunta}</p>
+
+            <input 
+                type="text" 
+                id="resposta" 
+                placeholder="Digite sua resposta..."
+                autocomplete="off"
+            >
+
+            <br>
+
+            <button onclick="verificar()">
+                RESPONDER
+            </button>
+
+            <div id="mensagem"></div>
+        `;
+
+        document.getElementById("resposta").focus();
+    }
+
+
+    function verificar() {
+
+        const resposta = document
+            .getElementById("resposta")
+            .value
+            .trim()
+            .toLowerCase();
+
+        const correta = perguntas[perguntaAtual]
+            .resposta
+            .trim()
+            .toLowerCase();
+
+        if (resposta === correta) {
+
+            perguntaAtual++;
+
+            if (perguntaAtual >= perguntas.length) {
+
+                document.getElementById("conteudo").innerHTML = `
+                    <h1>FIM</h1>
+                    <p>Você completou o desafio.</p>
+                `;
+
+            } else {
+
+                mostrarPergunta();
+
+            }
+
+        } else {
+
+            document.getElementById("mensagem").textContent =
+                "Resposta incorreta.";
+
+        }
+    }
+
+</script>
+```
 
 </body>
 </html>
