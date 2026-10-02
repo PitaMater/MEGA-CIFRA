@@ -2,36 +2,45 @@
 
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEGA CIFRA</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEGA CIFRA</title>
 
-```
 <style>
-    * {
-        box-sizing: border-box;
-    }
 
-    body {
-        margin: 0;
-        min-height: 100vh;
-        background: #030303;
-        color: white;
-        font-family: monospace;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-    }
+* {
+    box-sizing: border-box;
+}
 
-    body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 50;
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
 
-        background: repeating-linear-gradient(
+body {
+    background: #020202;
+    color: #e8e8e8;
+    font-family: "Courier New", monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* =========================
+   CRT / CÂMERA ANTIGA
+   ========================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+
+    background:
+        repeating-linear-gradient(
             to bottom,
             rgba(255,255,255,0.035) 0px,
             rgba(255,255,255,0.035) 1px,
@@ -39,534 +48,800 @@
             transparent 4px
         );
 
-        opacity: 0.65;
+    opacity: 0.7;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 101;
+
+    box-shadow:
+        inset 0 0 120px rgba(0,0,0,0.95),
+        inset 0 0 30px rgba(255,255,255,0.03);
+}
+
+/* =========================
+   CONTAINER
+   ========================= */
+
+.caixa {
+    width: min(850px, 88%);
+    min-height: 430px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.025),
+            rgba(0,0,0,0.96)
+        );
+
+    border: 1px solid #333;
+
+    position: relative;
+
+    padding: 55px;
+
+    text-align: center;
+
+    box-shadow:
+        0 0 40px rgba(255,255,255,0.025),
+        inset 0 0 40px rgba(255,255,255,0.025);
+
+    animation: entrada 1s ease;
+}
+
+/* Cantos tecnológicos */
+
+.caixa::before,
+.caixa::after {
+    content: "";
+    position: absolute;
+    width: 35px;
+    height: 35px;
+}
+
+.caixa::before {
+    left: -1px;
+    top: -1px;
+
+    border-left: 2px solid #777;
+    border-top: 2px solid #777;
+}
+
+.caixa::after {
+    right: -1px;
+    bottom: -1px;
+
+    border-right: 2px solid #777;
+    border-bottom: 2px solid #777;
+}
+
+/* =========================
+   TOPO
+   ========================= */
+
+.status {
+    position: absolute;
+
+    top: 18px;
+    left: 25px;
+
+    color: #555;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+}
+
+.status::before {
+    content: "● ";
+
+    color: #777;
+}
+
+/* =========================
+   TÍTULO
+   ========================= */
+
+h1 {
+    margin: 15px 0 35px;
+
+    font-size: clamp(35px, 6vw, 58px);
+
+    letter-spacing: 12px;
+
+    font-weight: normal;
+
+    color: #eee;
+
+    text-shadow:
+        2px 0 #555,
+        -2px 0 #222;
+
+    animation: titulo 5s infinite;
+}
+
+h2 {
+    font-size: 15px;
+
+    color: #777;
+
+    letter-spacing: 5px;
+
+    font-weight: normal;
+}
+
+p {
+    color: #aaa;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+}
+
+/* =========================
+   CURSOR
+   ========================= */
+
+.cursor {
+    display: inline-block;
+
+    width: 8px;
+    height: 18px;
+
+    background: #aaa;
+
+    margin-left: 5px;
+
+    animation: cursor 1s infinite;
+}
+
+/* =========================
+   BOTÃO
+   ========================= */
+
+button {
+    margin-top: 35px;
+
+    padding: 15px 45px;
+
+    background: transparent;
+
+    color: #ddd;
+
+    border: 1px solid #555;
+
+    font-family: monospace;
+
+    letter-spacing: 4px;
+
+    cursor: pointer;
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        0.25s,
+        transform 0.15s;
+}
+
+button::before {
+    content: "";
+
+    position: absolute;
+
+    left: -100%;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(255,255,255,0.08);
+
+    transition: 0.3s;
+}
+
+button:hover::before {
+    left: 0;
+}
+
+button:hover {
+    border-color: #aaa;
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,0.08);
+
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+/* =========================
+   PERGUNTA
+   ========================= */
+
+.pergunta-numero {
+    color: #555;
+
+    font-size: 12px;
+
+    letter-spacing: 5px;
+
+    margin-bottom: 20px;
+}
+
+.pergunta {
+    font-size: 20px;
+
+    color: #ddd;
+
+    margin: 20px auto;
+
+    max-width: 650px;
+}
+
+/* =========================
+   INPUT
+   ========================= */
+
+input {
+    width: min(500px, 90%);
+
+    padding: 15px;
+
+    margin-top: 25px;
+
+    background: #050505;
+
+    border: 1px solid #444;
+
+    color: white;
+
+    outline: none;
+
+    font-family: monospace;
+
+    font-size: 16px;
+
+    text-align: center;
+
+    transition: 0.2s;
+}
+
+input:focus {
+    border-color: #aaa;
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,0.05);
+}
+
+input::placeholder {
+    color: #444;
+}
+
+/* =========================
+   MENSAGEM
+   ========================= */
+
+#mensagem {
+    min-height: 22px;
+
+    margin-top: 20px;
+
+    color: #555;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+}
+
+/* =========================
+   ERRO VERDE 👽
+   ========================= */
+
+body.erro {
+    animation: erroTela 0.65s steps(5);
+}
+
+body.erro .caixa {
+    animation: erroCaixa 0.55s steps(5);
+}
+
+body.erro::after {
+    content: "ACCESS DENIED";
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 200;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    color: #00ff66;
+
+    font-size: clamp(25px, 5vw, 55px);
+
+    font-weight: bold;
+
+    letter-spacing: 12px;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(0,255,80,0.12) 0px,
+            rgba(0,255,80,0.12) 2px,
+            transparent 2px,
+            transparent 6px
+        );
+
+    text-shadow:
+        5px 0 #003d1c,
+        -5px 0 #001f0e,
+        0 0 20px #00ff66;
+
+    pointer-events: none;
+
+    animation: erroMensagem 0.65s steps(5);
+}
+
+/* =========================
+   TRANSIÇÃO
+   ========================= */
+
+.trocando {
+    animation: troca 0.35s ease;
+}
+
+/* =========================
+   FINAL
+   ========================= */
+
+.final {
+    animation: finalEntrada 1.5s ease;
+}
+
+.final h1 {
+    color: #eee;
+}
+
+/* =========================
+   ANIMAÇÕES
+   ========================= */
+
+@keyframes entrada {
+
+    from {
+        opacity: 0;
+        transform: scale(0.94);
     }
 
-    body::after {
-        content: "";
-        position: fixed;
-        inset: -50%;
-        pointer-events: none;
-        z-index: 49;
-
-        background-image:
-            repeating-radial-gradient(
-                circle at 0 0,
-                rgba(255,255,255,0.04) 0,
-                rgba(255,255,255,0.04) 1px,
-                transparent 1px,
-                transparent 3px
-            );
-
-        opacity: 0.08;
-        animation: ruido 0.18s infinite;
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
 
-    .caixa {
-        width: 80%;
-        max-width: 700px;
-        padding: 45px;
-        border: 1px solid #333;
-        background: rgba(8,8,8,0.96);
-        text-align: center;
-        position: relative;
+}
 
-        box-shadow:
-            0 0 25px rgba(255,255,255,0.03),
-            inset 0 0 30px rgba(255,255,255,0.02);
+@keyframes titulo {
 
-        animation: aparecer 1s ease;
+    0%, 92%, 100% {
+        transform: translateX(0);
     }
 
-    .caixa::before,
-    .caixa::after {
-        content: "";
-        position: absolute;
-        width: 25px;
-        height: 25px;
-        border-color: #777;
+    94% {
+        transform: translateX(-3px);
     }
 
-    .caixa::before {
-        top: -1px;
-        left: -1px;
-        border-top: 1px solid;
-        border-left: 1px solid;
+    96% {
+        transform: translateX(3px);
     }
 
-    .caixa::after {
-        bottom: -1px;
-        right: -1px;
-        border-bottom: 1px solid;
-        border-right: 1px solid;
+}
+
+@keyframes cursor {
+
+    0%, 45% {
+        opacity: 1;
     }
 
-    h1 {
-        font-size: 44px;
-        letter-spacing: 10px;
-        margin-bottom: 30px;
-
-        text-shadow:
-            2px 0 #444,
-            -2px 0 #222;
-
-        animation: titulo 3s infinite;
+    46%, 100% {
+        opacity: 0;
     }
 
-    p {
-        color: #aaa;
-        font-size: 17px;
-        line-height: 1.7;
+}
+
+@keyframes erroTela {
+
+    0% {
+        background: #020202;
+        transform: translate(0);
     }
 
-    .subtitulo {
-        color: #555;
-        font-size: 12px;
-        letter-spacing: 4px;
-        margin-top: 25px;
+    15% {
+        background: #003b1b;
+        transform: translate(-8px, 2px);
     }
 
-    button {
-        margin-top: 28px;
-        padding: 14px 38px;
-
-        background: #090909;
-        color: #ddd;
-
-        border: 1px solid #555;
-        cursor: pointer;
-
-        font-family: monospace;
-        letter-spacing: 3px;
-
-        transition:
-            background 0.2s,
-            border-color 0.2s,
-            box-shadow 0.2s,
-            transform 0.2s;
+    30% {
+        background: #020202;
+        transform: translate(7px, -3px);
     }
 
-    button:hover {
-        background: #181818;
-        border-color: #aaa;
-
-        box-shadow:
-            0 0 15px rgba(255,255,255,0.08);
-
-        transform: scale(1.04);
+    45% {
+        background: #006b30;
+        transform: translate(-5px, 2px);
     }
 
-    button:active {
-        transform: scale(0.97);
+    60% {
+        background: #001c0d;
+        transform: translate(5px);
     }
 
-    input {
-        margin-top: 20px;
-        padding: 13px;
-
-        width: 75%;
-
-        background: #050505;
-        color: white;
-
-        border: 1px solid #555;
-
-        font-family: monospace;
-        text-align: center;
-
-        outline: none;
+    75% {
+        background: #00ff66;
+        transform: translate(-2px);
     }
 
-    input:focus {
-        border-color: #aaa;
-
-        box-shadow:
-            0 0 12px rgba(255,255,255,0.06);
+    100% {
+        background: #020202;
+        transform: translate(0);
     }
 
-    #mensagem {
-        margin-top: 20px;
-        color: #777;
-        min-height: 20px;
+}
+
+@keyframes erroCaixa {
+
+    0% {
+        transform: translate(0);
     }
 
-    /* ==========================
-       EFEITO DE ERRO
-       ========================== */
-
-    body.erro {
-        animation: telaErro 0.55s steps(2);
+    20% {
+        transform: translate(-14px, 3px);
     }
 
-    body.erro .caixa {
-        animation: caixaErro 0.45s steps(3);
+    40% {
+        transform: translate(12px, -3px);
     }
 
-    body.erro::after {
-        content: "ACCESS DENIED";
-
-        position: fixed;
-        inset: 0;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        color: #ff2222;
-
-        font-size: 36px;
-        font-weight: bold;
-        letter-spacing: 9px;
-
-        background:
-            repeating-linear-gradient(
-                to bottom,
-                rgba(255,0,0,0.08) 0px,
-                rgba(255,0,0,0.08) 2px,
-                transparent 2px,
-                transparent 6px
-            );
-
-        z-index: 100;
-        pointer-events: none;
-
-        text-shadow:
-            4px 0 #550000,
-            -4px 0 #220000;
-
-        animation: mensagemErro 0.55s steps(4);
+    60% {
+        transform: translate(-8px, 2px);
     }
 
-    /* ==========================
-       ANIMAÇÕES
-       ========================== */
-
-    @keyframes aparecer {
-        from {
-            opacity: 0;
-            transform: scale(0.96);
-        }
-
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
+    80% {
+        transform: translate(5px);
     }
 
-    @keyframes titulo {
-        0%, 90%, 100% {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        92% {
-            opacity: 0.7;
-            transform: translateX(-2px);
-        }
-
-        94% {
-            opacity: 1;
-            transform: translateX(3px);
-        }
+    100% {
+        transform: translate(0);
     }
 
-    @keyframes ruido {
-        0% {
-            transform: translate(0,0);
-        }
+}
 
-        25% {
-            transform: translate(3%, -2%);
-        }
+@keyframes erroMensagem {
 
-        50% {
-            transform: translate(-2%, 3%);
-        }
-
-        75% {
-            transform: translate(2%, 1%);
-        }
-
-        100% {
-            transform: translate(0,0);
-        }
+    0% {
+        opacity: 0;
+        transform: translateX(0);
     }
 
-    @keyframes telaErro {
-        0% {
-            background: #030303;
-            transform: translate(0);
-        }
-
-        15% {
-            background: #650000;
-            transform: translate(-5px, 2px);
-        }
-
-        30% {
-            background: #100000;
-            transform: translate(6px, -2px);
-        }
-
-        45% {
-            background: #800000;
-            transform: translate(-3px, 1px);
-        }
-
-        60% {
-            background: #050000;
-            transform: translate(4px, 0);
-        }
-
-        75% {
-            background: #420000;
-            transform: translate(-2px, -1px);
-        }
-
-        100% {
-            background: #030303;
-            transform: translate(0);
-        }
+    15% {
+        opacity: 1;
+        transform: translateX(-18px);
     }
 
-    @keyframes caixaErro {
-        0% {
-            transform: translate(0);
-        }
-
-        20% {
-            transform: translate(-10px, 2px);
-        }
-
-        40% {
-            transform: translate(8px, -2px);
-        }
-
-        60% {
-            transform: translate(-5px, 1px);
-        }
-
-        80% {
-            transform: translate(4px, 0);
-        }
-
-        100% {
-            transform: translate(0);
-        }
+    30% {
+        opacity: 0.3;
+        transform: translateX(15px);
     }
 
-    @keyframes mensagemErro {
-        0% {
-            opacity: 0;
-            transform: translateX(0);
-        }
-
-        15% {
-            opacity: 1;
-            transform: translateX(-12px);
-        }
-
-        30% {
-            opacity: 0.3;
-            transform: translateX(10px);
-        }
-
-        45% {
-            opacity: 1;
-            transform: translateX(-7px);
-        }
-
-        65% {
-            opacity: 0.6;
-            transform: translateX(5px);
-        }
-
-        100% {
-            opacity: 0;
-            transform: translateX(0);
-        }
+    45% {
+        opacity: 1;
+        transform: translateX(-10px);
     }
+
+    65% {
+        opacity: 0.5;
+        transform: translateX(8px);
+    }
+
+    85% {
+        opacity: 1;
+        transform: translateX(-3px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(0);
+    }
+
+}
+
+@keyframes troca {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+@keyframes finalEntrada {
+
+    from {
+        opacity: 0;
+        transform: scale(1.15);
+        filter: blur(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+
+}
+
 </style>
-```
 
 </head>
 
 <body>
 
-```
 <div class="caixa" id="conteudo">
 
-    <h1>MEGA CIFRA</h1>
+```
+<div class="status">
+    SISTEMA ONLINE
+</div>
 
-    <p>Você foi selecionado.</p>
+<h1>MEGA CIFRA</h1>
 
-    <p>O desafio começará em breve...</p>
+<h2>TRANSMISSÃO RESTRITA</h2>
 
-    <div class="subtitulo">
-        [ SISTEMA ONLINE ]
-    </div>
+<p>
+    Você foi selecionado.
+    <span class="cursor"></span>
+</p>
 
-    <button onclick="iniciar()">
-        INICIAR
-    </button>
+<p>
+    Sua participação foi registrada.<br>
+    O restante depende de você.
+</p>
+
+<button onclick="iniciar()">
+    INICIAR
+</button>
+```
 
 </div>
 
-
 <script>
 
-    /* ==================================================
-       PERGUNTAS DO DESAFIO
+/* ==========================================================
+   PERGUNTAS
+   ==========================================================
 
-       MUDE SOMENTE ESTA PARTE!
+   É AQUI QUE VOCÊ MUDA AS PERGUNTAS.
 
-       "pergunta" = o que a pessoa verá
-       "resposta" = resposta correta
-       ================================================== */
+   pergunta = texto mostrado para a pessoa
+   resposta = resposta correta
 
-    const perguntas = [
+   ========================================================== */
 
-        {
-            pergunta: "Qual é a resposta da primeira pergunta?",
-            resposta: "minecraft"
-        },
+const perguntas = [
 
-        {
-            pergunta: "Segunda pergunta vai aqui.",
-            resposta: "resposta2"
-        },
+    {
+        pergunta: "Qual é a resposta da primeira pergunta?",
+        resposta: "minecraft"
+    },
 
-        {
-            pergunta: "Terceira pergunta vai aqui.",
-            resposta: "resposta3"
-        }
+    {
+        pergunta: "Segunda pergunta vai aqui.",
+        resposta: "resposta2"
+    },
 
-    ];
-
-
-    /* ==================================================
-       SISTEMA DO DESAFIO
-       NÃO PRECISA MEXER DAQUI PARA BAIXO
-       ================================================== */
-
-    let perguntaAtual = 0;
-
-
-    function iniciar() {
-        mostrarPergunta();
+    {
+        pergunta: "Terceira pergunta vai aqui.",
+        resposta: "resposta3"
     }
 
-
-    function mostrarPergunta() {
-
-        const p = perguntas[perguntaAtual];
-
-        document.getElementById("conteudo").innerHTML = `
-
-            <h1>MEGA CIFRA</h1>
-
-            <p>${p.pergunta}</p>
-
-            <input
-                type="text"
-                id="resposta"
-                placeholder="Digite sua resposta..."
-                autocomplete="off"
-            >
-
-            <br>
-
-            <button onclick="verificar()">
-                RESPONDER
-            </button>
-
-            <div id="mensagem"></div>
-
-        `;
-
-        document.getElementById("resposta").focus();
-    }
+];
 
 
-    function verificar() {
+/* ==========================================================
+   SISTEMA
+   NÃO PRECISA MEXER DAQUI PARA BAIXO
+   ========================================================== */
 
-        const resposta = document
-            .getElementById("resposta")
-            .value
-            .trim()
-            .toLowerCase();
-
-        const correta = perguntas[perguntaAtual]
-            .resposta
-            .trim()
-            .toLowerCase();
+let perguntaAtual = 0;
 
 
-        if (resposta === correta) {
+function iniciar() {
 
-            perguntaAtual++;
+    perguntaAtual = 0;
 
-            if (perguntaAtual >= perguntas.length) {
+    mostrarPergunta();
 
-                document.getElementById("conteudo").innerHTML = `
+}
 
-                    <h1>FIM</h1>
 
-                    <p>
-                        Você completou o desafio.
-                    </p>
+function mostrarPergunta() {
 
-                    <div class="subtitulo">
-                        [ TRANSMISSÃO ENCERRADA ]
-                    </div>
+    const p = perguntas[perguntaAtual];
 
-                `;
+    const caixa = document.getElementById("conteudo");
 
-            } else {
+    caixa.classList.remove("trocando");
 
-                mostrarPergunta();
+    void caixa.offsetWidth;
 
-            }
+    caixa.classList.add("trocando");
+
+    caixa.innerHTML = `
+
+        <div class="status">
+            SISTEMA ONLINE
+        </div>
+
+        <div class="pergunta-numero">
+            ARQUIVO ${String(perguntaAtual + 1).padStart(2, "0")}
+            /
+            ${String(perguntas.length).padStart(2, "0")}
+        </div>
+
+        <h1>MEGA CIFRA</h1>
+
+        <div class="pergunta">
+            ${p.pergunta}
+        </div>
+
+        <input
+            type="text"
+            id="resposta"
+            placeholder="DIGITE A RESPOSTA..."
+            autocomplete="off"
+        >
+
+        <br>
+
+        <button onclick="verificar()">
+            CONFIRMAR
+        </button>
+
+        <div id="mensagem"></div>
+
+    `;
+
+    document.getElementById("resposta").focus();
+
+}
+
+
+function verificar() {
+
+    const campo = document.getElementById("resposta");
+
+    const resposta = campo.value
+        .trim()
+        .toLowerCase();
+
+    const correta = perguntas[perguntaAtual]
+        .resposta
+        .trim()
+        .toLowerCase();
+
+
+    /* RESPOSTA CERTA */
+
+    if (resposta === correta) {
+
+        perguntaAtual++;
+
+        if (perguntaAtual >= perguntas.length) {
+
+            finalizar();
 
         } else {
 
-            document.getElementById("mensagem").textContent =
-                "RESPOSTA INCORRETA.";
-
-            document.body.classList.remove("erro");
-
-            void document.body.offsetWidth;
-
-            document.body.classList.add("erro");
-
-            setTimeout(() => {
-
-                document.body.classList.remove("erro");
-
-            }, 600);
+            mostrarPergunta();
 
         }
+
+        return;
     }
 
 
-    /* ENTER também envia a resposta */
+    /* RESPOSTA ERRADA */
 
-    document.addEventListener("keydown", function(event) {
+    document.getElementById("mensagem").textContent =
+        "RESPOSTA NÃO RECONHECIDA.";
 
-        if (
-            event.key === "Enter" &&
-            document.activeElement &&
-            document.activeElement.id === "resposta"
-        ) {
+    document.body.classList.remove("erro");
 
-            verificar();
+    void document.body.offsetWidth;
 
-        }
+    document.body.classList.add("erro");
 
-    });
+    setTimeout(() => {
+
+        document.body.classList.remove("erro");
+
+    }, 700);
+
+}
+
+
+/* ==========================================================
+   FINAL
+   ========================================================== */
+
+function finalizar() {
+
+    const caixa = document.getElementById("conteudo");
+
+    caixa.innerHTML = `
+
+        <div class="status">
+            TRANSMISSÃO CONCLUÍDA
+        </div>
+
+        <div class="final">
+
+            <h1>FIM</h1>
+
+            <p>
+                Você completou o desafio.
+            </p>
+
+            <p>
+                Todas as etapas foram concluídas.
+            </p>
+
+            <div class="subtitulo">
+                [ ACESSO CONCEDIDO ]
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* ==========================================================
+   ENTER = CONFIRMAR
+   ========================================================== */
+
+document.addEventListener("keydown", function(event) {
+
+    if (
+        event.key === "Enter" &&
+        document.activeElement &&
+        document.activeElement.id === "resposta"
+    ) {
+
+        verificar();
+
+    }
+
+});
 
 </script>
-```
 
 </body>
 </html>
