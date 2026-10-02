@@ -1,18 +1,25 @@
+```html
 <!DOCTYPE html>
-
 <html lang="pt-BR">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>MEGA CIFRA</title>
 
 <style>
+
+/* =========================
+   CONFIGURAÇÕES GERAIS
+========================= */
 
 * {
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     width: 100%;
     height: 100%;
@@ -22,118 +29,140 @@ body {
     background: #020202;
     color: #e8e8e8;
     font-family: "Courier New", monospace;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     overflow: hidden;
+
+    transition: background 0.2s;
 }
 
+
 /* =========================
-   CRT / CÂMERA ANTIGA
-   ========================= */
+   EFEITO CRT
+========================= */
 
 body::before {
     content: "";
     position: fixed;
     inset: 0;
-    pointer-events: none;
-    z-index: 100;
 
     background:
         repeating-linear-gradient(
             to bottom,
-            rgba(255,255,255,0.035) 0px,
-            rgba(255,255,255,0.035) 1px,
+            rgba(255,255,255,0.025) 0px,
+            rgba(255,255,255,0.025) 1px,
             transparent 1px,
             transparent 4px
         );
 
-    opacity: 0.7;
+    pointer-events: none;
+    z-index: 100;
 }
+
+
+/* =========================
+   VINHETA
+========================= */
 
 body::after {
     content: "";
+
     position: fixed;
     inset: 0;
-    pointer-events: none;
-    z-index: 101;
-
-    box-shadow:
-        inset 0 0 120px rgba(0,0,0,0.95),
-        inset 0 0 30px rgba(255,255,255,0.03);
-}
-
-/* =========================
-   CONTAINER
-   ========================= */
-
-.caixa {
-    width: min(850px, 88%);
-    min-height: 430px;
 
     background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,0.025),
-            rgba(0,0,0,0.96)
+        radial-gradient(
+            ellipse at center,
+            transparent 40%,
+            rgba(0,0,0,0.85) 100%
         );
 
-    border: 1px solid #333;
+    pointer-events: none;
+    z-index: 101;
+}
 
+
+/* =========================
+   CAIXA PRINCIPAL
+========================= */
+
+.caixa {
     position: relative;
+
+    width: min(850px, 88%);
+    min-height: 430px;
 
     padding: 55px;
 
     text-align: center;
 
-    box-shadow:
-        0 0 40px rgba(255,255,255,0.025),
-        inset 0 0 40px rgba(255,255,255,0.025);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.035),
+            rgba(0,0,0,0.8)
+        );
 
-    animation: entrada 1s ease;
+    border: 1px solid #333;
+
+    box-shadow:
+        0 0 30px rgba(0,0,0,0.8),
+        inset 0 0 40px rgba(255,255,255,0.02);
+
+    animation: entrada 1.2s ease;
 }
 
-/* Cantos tecnológicos */
+
+/* =========================
+   CANTOS DA CAIXA
+========================= */
 
 .caixa::before,
 .caixa::after {
     content: "";
+
     position: absolute;
+
     width: 35px;
     height: 35px;
+
+    border-color: #777;
+    border-style: solid;
 }
 
 .caixa::before {
-    left: -1px;
     top: -1px;
+    left: -1px;
 
-    border-left: 2px solid #777;
-    border-top: 2px solid #777;
+    border-width: 2px 0 0 2px;
 }
 
 .caixa::after {
-    right: -1px;
     bottom: -1px;
+    right: -1px;
 
-    border-right: 2px solid #777;
-    border-bottom: 2px solid #777;
+    border-width: 0 2px 2px 0;
 }
 
+
 /* =========================
-   TOPO
-   ========================= */
+   STATUS
+========================= */
 
 .status {
     position: absolute;
 
-    top: 18px;
-    left: 25px;
+    top: 15px;
+    left: 20px;
 
-    color: #555;
+    color: #666;
 
     font-size: 11px;
 
-    letter-spacing: 3px;
+    letter-spacing: 2px;
 }
 
 .status::before {
@@ -142,174 +171,157 @@ body::after {
     color: #777;
 }
 
+
 /* =========================
    TÍTULO
-   ========================= */
+========================= */
 
 h1 {
-    margin: 15px 0 35px;
+    margin: 25px 0 5px;
 
-    font-size: clamp(35px, 6vw, 58px);
+    font-size: clamp(42px, 8vw, 80px);
 
-    letter-spacing: 12px;
-
-    font-weight: normal;
+    letter-spacing: 10px;
 
     color: #eee;
 
     text-shadow:
-        2px 0 #555,
-        -2px 0 #222;
+        0 0 5px rgba(255,255,255,0.5),
+        0 0 15px rgba(255,255,255,0.1);
 
-    animation: titulo 5s infinite;
+    animation: titulo 4s infinite;
 }
 
 h2 {
-    font-size: 15px;
+    margin: 0 0 35px;
 
     color: #777;
 
-    letter-spacing: 5px;
+    font-size: 14px;
 
-    font-weight: normal;
+    letter-spacing: 5px;
 }
+
+
+/* =========================
+   TEXTO
+========================= */
 
 p {
     color: #aaa;
 
-    font-size: 17px;
-
     line-height: 1.8;
+
+    font-size: 15px;
 }
+
 
 /* =========================
    CURSOR
-   ========================= */
+========================= */
 
 .cursor {
     display: inline-block;
 
     width: 8px;
-    height: 18px;
+    height: 15px;
 
     background: #aaa;
 
-    margin-left: 5px;
+    margin-left: 4px;
 
-    animation: cursor 1s infinite;
+    animation: cursor 0.8s infinite;
 }
+
 
 /* =========================
    BOTÃO
-   ========================= */
+========================= */
 
 button {
-    margin-top: 35px;
+    margin-top: 25px;
 
-    padding: 15px 45px;
+    padding: 14px 35px;
 
     background: transparent;
 
+    border: 1px solid #777;
+
     color: #ddd;
 
-    border: 1px solid #555;
+    font-family: "Courier New", monospace;
 
-    font-family: monospace;
+    font-size: 14px;
 
-    letter-spacing: 4px;
+    letter-spacing: 3px;
 
     cursor: pointer;
 
-    position: relative;
-
-    overflow: hidden;
-
-    transition:
-        0.25s,
-        transform 0.15s;
-}
-
-button::before {
-    content: "";
-
-    position: absolute;
-
-    left: -100%;
-    top: 0;
-
-    width: 100%;
-    height: 100%;
-
-    background: rgba(255,255,255,0.08);
-
-    transition: 0.3s;
-}
-
-button:hover::before {
-    left: 0;
+    transition: 0.2s;
 }
 
 button:hover {
-    border-color: #aaa;
+    background: #ddd;
+
+    color: #000;
 
     box-shadow:
-        0 0 20px rgba(255,255,255,0.08);
+        0 0 15px rgba(255,255,255,0.3);
 
-    transform: translateY(-2px);
+    transform: scale(1.04);
 }
 
-button:active {
-    transform: scale(0.96);
-}
 
 /* =========================
-   PERGUNTA
-   ========================= */
+   NÚMERO DA PERGUNTA
+========================= */
 
 .pergunta-numero {
-    color: #555;
+    color: #666;
 
     font-size: 12px;
 
-    letter-spacing: 5px;
+    letter-spacing: 3px;
 
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
+
+
+/* =========================
+   PERGUNTA
+========================= */
 
 .pergunta {
     font-size: 20px;
 
     color: #ddd;
 
-    margin: 20px auto;
-
-    max-width: 650px;
+    margin-bottom: 30px;
 }
+
 
 /* =========================
    INPUT
-   ========================= */
+========================= */
 
 input {
     width: min(500px, 90%);
 
-    padding: 15px;
-
-    margin-top: 25px;
+    padding: 14px;
 
     background: #050505;
 
     border: 1px solid #444;
 
-    color: white;
+    color: #fff;
 
     outline: none;
 
-    font-family: monospace;
+    text-align: center;
+
+    font-family: "Courier New", monospace;
 
     font-size: 16px;
-
-    text-align: center;
 
     transition: 0.2s;
 }
@@ -318,39 +330,55 @@ input:focus {
     border-color: #aaa;
 
     box-shadow:
-        0 0 20px rgba(255,255,255,0.05);
+        0 0 15px rgba(255,255,255,0.08);
 }
 
-input::placeholder {
-    color: #444;
-}
 
 /* =========================
    MENSAGEM
-   ========================= */
+========================= */
 
 #mensagem {
-    min-height: 22px;
+    min-height: 25px;
 
     margin-top: 20px;
 
-    color: #555;
+    color: #777;
 
-    font-size: 13px;
+    font-size: 12px;
 
     letter-spacing: 2px;
 }
 
+
 /* =========================
-   ERRO VERDE 👽
-   ========================= */
+   TRANSIÇÃO ENTRE PERGUNTAS
+========================= */
+
+.trocando {
+    animation: troca 0.5s ease;
+}
+
+
+/* =========================
+   FINAL
+========================= */
+
+.final {
+    animation: finalEntrada 1s ease;
+}
+
+
+/* =========================================================
+   🔴 ERRO — ACCESS DENIED
+========================================================= */
 
 body.erro {
-    animation: erroTela 0.65s steps(5);
+    animation: erroTela 0.7s;
 }
 
 body.erro .caixa {
-    animation: erroCaixa 0.55s steps(5);
+    animation: erroCaixa 0.7s;
 }
 
 body.erro::after {
@@ -360,288 +388,437 @@ body.erro::after {
 
     inset: 0;
 
-    z-index: 200;
+    z-index: 9999;
 
     display: flex;
 
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    color: #00ff66;
+    color: #ff2020;
 
-    font-size: clamp(25px, 5vw, 55px);
+    background: rgba(255,0,0,0.08);
+
+    font-size: clamp(30px, 7vw, 90px);
 
     font-weight: bold;
 
-    letter-spacing: 12px;
-
-    background:
-        repeating-linear-gradient(
-            to bottom,
-            rgba(0,255,80,0.12) 0px,
-            rgba(0,255,80,0.12) 2px,
-            transparent 2px,
-            transparent 6px
-        );
+    letter-spacing: 10px;
 
     text-shadow:
-        5px 0 #003d1c,
-        -5px 0 #001f0e,
-        0 0 20px #00ff66;
+        0 0 5px #ff2020,
+        0 0 15px #ff2020,
+        0 0 30px #ff2020;
 
     pointer-events: none;
 
-    animation: erroMensagem 0.65s steps(5);
+    animation: erroMensagem 0.7s;
 }
 
-/* =========================
-   TRANSIÇÃO
-   ========================= */
 
-.trocando {
-    animation: troca 0.35s ease;
+/* =========================================================
+   🟢 ACERTO — ACCESS PASSED
+========================================================= */
+
+body.acerto {
+    animation: acertoTela 0.7s;
 }
 
-/* =========================
-   FINAL
-   ========================= */
-
-.final {
-    animation: finalEntrada 1.5s ease;
+body.acerto .caixa {
+    animation: acertoCaixa 0.7s;
 }
 
-.final h1 {
-    color: #eee;
+body.acerto::after {
+    content: "ACCESS PASSED";
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #00ff66;
+
+    background: rgba(0,255,80,0.08);
+
+    font-size: clamp(30px, 7vw, 90px);
+
+    font-weight: bold;
+
+    letter-spacing: 10px;
+
+    text-shadow:
+        0 0 5px #00ff66,
+        0 0 15px #00ff66,
+        0 0 30px #00ff66;
+
+    pointer-events: none;
+
+    animation: acertoMensagem 0.7s;
 }
+
 
 /* =========================
    ANIMAÇÕES
-   ========================= */
+========================= */
 
 @keyframes entrada {
 
     from {
         opacity: 0;
-        transform: scale(0.94);
+        transform: scale(0.95);
     }
 
     to {
         opacity: 1;
         transform: scale(1);
     }
-
 }
+
 
 @keyframes titulo {
 
-    0%, 92%, 100% {
+    0%,
+    90%,
+    100% {
         transform: translateX(0);
     }
 
-    94% {
-        transform: translateX(-3px);
+    92% {
+        transform: translateX(-2px);
     }
 
-    96% {
+    94% {
         transform: translateX(3px);
     }
 
+    96% {
+        transform: translateX(-1px);
+    }
 }
+
 
 @keyframes cursor {
 
-    0%, 45% {
+    0%,
+    50% {
         opacity: 1;
     }
 
-    46%, 100% {
+    51%,
+    100% {
         opacity: 0;
     }
-
 }
+
+
+/* =========================
+   ERRO VERMELHO
+========================= */
 
 @keyframes erroTela {
 
-    0% {
+    0%,
+    100% {
         background: #020202;
-        transform: translate(0);
     }
 
     15% {
-        background: #003b1b;
-        transform: translate(-8px, 2px);
+        background: #ff2020;
     }
 
     30% {
         background: #020202;
-        transform: translate(7px, -3px);
     }
 
     45% {
-        background: #006b30;
-        transform: translate(-5px, 2px);
+        background: #ff2020;
     }
 
     60% {
-        background: #001c0d;
-        transform: translate(5px);
+        background: #020202;
     }
 
     75% {
-        background: #00ff66;
-        transform: translate(-2px);
+        background: #ff2020;
     }
-
-    100% {
-        background: #020202;
-        transform: translate(0);
-    }
-
 }
+
 
 @keyframes erroCaixa {
 
-    0% {
-        transform: translate(0);
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10% {
+        transform: translateX(-12px);
     }
 
     20% {
-        transform: translate(-14px, 3px);
+        transform: translateX(12px);
+    }
+
+    30% {
+        transform: translateX(-8px);
     }
 
     40% {
-        transform: translate(12px, -3px);
+        transform: translateX(8px);
+    }
+
+    50% {
+        transform: translateX(-4px);
     }
 
     60% {
-        transform: translate(-8px, 2px);
+        transform: translateX(4px);
     }
-
-    80% {
-        transform: translate(5px);
-    }
-
-    100% {
-        transform: translate(0);
-    }
-
 }
+
 
 @keyframes erroMensagem {
 
     0% {
         opacity: 0;
-        transform: translateX(0);
+
+        transform:
+            scale(0.7)
+            skewX(0deg);
+
+        filter: brightness(3);
     }
 
-    15% {
+    10% {
         opacity: 1;
-        transform: translateX(-18px);
+
+        transform:
+            scale(1.1)
+            skewX(-10deg);
+    }
+
+    20% {
+        transform:
+            translateX(-20px)
+            skewX(10deg);
     }
 
     30% {
-        opacity: 0.3;
-        transform: translateX(15px);
+        transform:
+            translateX(20px)
+            skewX(-10deg);
     }
 
-    45% {
+    40% {
+        transform:
+            translateX(-10px);
+    }
+
+    50% {
+        transform:
+            translateX(10px);
+    }
+
+    70% {
         opacity: 1;
-        transform: translateX(-10px);
-    }
 
-    65% {
-        opacity: 0.5;
-        transform: translateX(8px);
-    }
-
-    85% {
-        opacity: 1;
-        transform: translateX(-3px);
+        transform: scale(1);
     }
 
     100% {
         opacity: 0;
-        transform: translateX(0);
+    }
+}
+
+
+/* =========================
+   ACERTO VERDE
+========================= */
+
+@keyframes acertoTela {
+
+    0%,
+    100% {
+        background: #020202;
     }
 
+    15% {
+        background: #00ff66;
+    }
+
+    30% {
+        background: #020202;
+    }
+
+    45% {
+        background: #00ff66;
+    }
+
+    60% {
+        background: #020202;
+    }
+
+    75% {
+        background: #00ff66;
+    }
 }
+
+
+@keyframes acertoCaixa {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    20% {
+        transform: scale(1.03);
+    }
+
+    40% {
+        transform: scale(0.98);
+    }
+
+    60% {
+        transform: scale(1.02);
+    }
+}
+
+
+@keyframes acertoMensagem {
+
+    0% {
+        opacity: 0;
+
+        transform: scale(0.7);
+
+        filter: brightness(3);
+    }
+
+    15% {
+        opacity: 1;
+
+        transform:
+            scale(1.1)
+            skewX(-5deg);
+    }
+
+    30% {
+        transform:
+            scale(0.95)
+            skewX(5deg);
+    }
+
+    45% {
+        transform:
+            scale(1.05)
+            skewX(-3deg);
+    }
+
+    70% {
+        opacity: 1;
+
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+/* =========================
+   TROCA DE PERGUNTA
+========================= */
 
 @keyframes troca {
 
     from {
         opacity: 0;
-        transform: translateY(8px);
+
+        transform:
+            translateY(15px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
-    }
 
+        transform:
+            translateY(0);
+    }
 }
+
+
+/* =========================
+   FINAL
+========================= */
 
 @keyframes finalEntrada {
 
     from {
         opacity: 0;
-        transform: scale(1.15);
-        filter: blur(8px);
+
+        transform:
+            scale(0.8);
     }
 
     to {
         opacity: 1;
-        transform: scale(1);
-        filter: blur(0);
-    }
 
+        transform:
+            scale(1);
+    }
 }
 
 </style>
-
 </head>
+
 
 <body>
 
+
 <div class="caixa" id="conteudo">
 
-```
-<div class="status">
-    SISTEMA ONLINE
+    <div class="status">
+        SISTEMA ONLINE
+    </div>
+
+    <h1>
+        MEGA CIFRA
+    </h1>
+
+    <h2>
+        TRANSMISSÃO RESTRITA
+    </h2>
+
+    <p>
+        Você foi selecionado.
+        <span class="cursor"></span>
+    </p>
+
+    <p>
+        Sua participação foi registrada.<br>
+        O restante depende de você.
+    </p>
+
+    <button onclick="iniciar()">
+        INICIAR
+    </button>
+
 </div>
 
-<h1>MEGA CIFRA</h1>
-
-<h2>TRANSMISSÃO RESTRITA</h2>
-
-<p>
-    Você foi selecionado.
-    <span class="cursor"></span>
-</p>
-
-<p>
-    Sua participação foi registrada.<br>
-    O restante depende de você.
-</p>
-
-<button onclick="iniciar()">
-    INICIAR
-</button>
-```
-
-</div>
 
 <script>
 
-/* ==========================================================
-   PERGUNTAS
-   ==========================================================
-
-   É AQUI QUE VOCÊ MUDA AS PERGUNTAS.
-
-   pergunta = texto mostrado para a pessoa
-   resposta = resposta correta
-
-   ========================================================== */
+/* =========================================================
+   ⚠️ EDITE SOMENTE ESTA PARTE
+========================================================= */
 
 const perguntas = [
 
@@ -663,13 +840,16 @@ const perguntas = [
 ];
 
 
-/* ==========================================================
-   SISTEMA
-   NÃO PRECISA MEXER DAQUI PARA BAIXO
-   ========================================================== */
+/* =========================================================
+   NÃO PRECISA EDITAR DAQUI PARA BAIXO
+========================================================= */
 
 let perguntaAtual = 0;
 
+
+/* =========================
+   INICIAR
+========================= */
 
 function iniciar() {
 
@@ -680,17 +860,24 @@ function iniciar() {
 }
 
 
+/* =========================
+   MOSTRAR PERGUNTA
+========================= */
+
 function mostrarPergunta() {
 
     const p = perguntas[perguntaAtual];
 
-    const caixa = document.getElementById("conteudo");
+    const caixa =
+        document.getElementById("conteudo");
+
 
     caixa.classList.remove("trocando");
 
     void caixa.offsetWidth;
 
     caixa.classList.add("trocando");
+
 
     caixa.innerHTML = `
 
@@ -704,17 +891,19 @@ function mostrarPergunta() {
             ${String(perguntas.length).padStart(2, "0")}
         </div>
 
-        <h1>MEGA CIFRA</h1>
+        <h1>
+            MEGA CIFRA
+        </h1>
 
-        <div class="pergunta">
+        <p class="pergunta">
             ${p.pergunta}
-        </div>
+        </p>
 
         <input
-            type="text"
             id="resposta"
-            placeholder="DIGITE A RESPOSTA..."
+            type="text"
             autocomplete="off"
+            spellcheck="false"
         >
 
         <br>
@@ -727,55 +916,88 @@ function mostrarPergunta() {
 
     `;
 
-    document.getElementById("resposta").focus();
+
+    document
+        .getElementById("resposta")
+        .focus();
 
 }
 
 
+/* =========================
+   VERIFICAR RESPOSTA
+========================= */
+
 function verificar() {
 
-    const campo = document.getElementById("resposta");
+    const campo =
+        document.getElementById("resposta");
 
-    const resposta = campo.value
+    const resposta =
+        campo.value
         .trim()
         .toLowerCase();
 
-    const correta = perguntas[perguntaAtual]
+    const correta =
+        perguntas[perguntaAtual]
         .resposta
         .trim()
         .toLowerCase();
 
 
-    /* RESPOSTA CERTA */
+    /* =================================
+       🟢 RESPOSTA CERTA
+    ================================= */
 
     if (resposta === correta) {
 
-        perguntaAtual++;
+        document.body.classList.remove("erro");
+        document.body.classList.remove("acerto");
 
-        if (perguntaAtual >= perguntas.length) {
+        void document.body.offsetWidth;
 
-            finalizar();
+        document.body.classList.add("acerto");
 
-        } else {
 
-            mostrarPergunta();
+        setTimeout(() => {
 
-        }
+            document.body.classList.remove("acerto");
+
+            perguntaAtual++;
+
+
+            if (perguntaAtual >= perguntas.length) {
+
+                finalizar();
+
+            } else {
+
+                mostrarPergunta();
+
+            }
+
+        }, 700);
+
 
         return;
     }
 
 
-    /* RESPOSTA ERRADA */
+    /* =================================
+       🔴 RESPOSTA ERRADA
+    ================================= */
 
-    document.getElementById("mensagem").textContent =
+    document.getElementById("mensagem")
+        .textContent =
         "RESPOSTA NÃO RECONHECIDA.";
+
 
     document.body.classList.remove("erro");
 
     void document.body.offsetWidth;
 
     document.body.classList.add("erro");
+
 
     setTimeout(() => {
 
@@ -786,35 +1008,45 @@ function verificar() {
 }
 
 
-/* ==========================================================
+/* =========================
    FINAL
-   ========================================================== */
+========================= */
 
 function finalizar() {
 
-    const caixa = document.getElementById("conteudo");
+    const caixa =
+        document.getElementById("conteudo");
+
 
     caixa.innerHTML = `
 
         <div class="status">
-            TRANSMISSÃO CONCLUÍDA
+            SISTEMA ONLINE
         </div>
 
         <div class="final">
 
-            <h1>FIM</h1>
+            <h1>
+                FIM
+            </h1>
+
+            <h2>
+                TRANSMISSÃO CONCLUÍDA
+            </h2>
 
             <p>
-                Você completou o desafio.
+                Todas as verificações foram concluídas.
             </p>
 
             <p>
-                Todas as etapas foram concluídas.
+                Você chegou até o fim.
             </p>
 
-            <div class="subtitulo">
-                [ ACESSO CONCEDIDO ]
-            </div>
+            <p>
+                <span style="color:#00ff66;">
+                    [ ACESSO CONCEDIDO ]
+                </span>
+            </p>
 
         </div>
 
@@ -823,25 +1055,29 @@ function finalizar() {
 }
 
 
-/* ==========================================================
+/* =========================
    ENTER = CONFIRMAR
-   ========================================================== */
+========================= */
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener(
+    "keydown",
+    function(event) {
 
-    if (
-        event.key === "Enter" &&
-        document.activeElement &&
-        document.activeElement.id === "resposta"
-    ) {
+        if (
+            event.key === "Enter" &&
+            document.activeElement &&
+            document.activeElement.id === "resposta"
+        ) {
 
-        verificar();
+            verificar();
+
+        }
 
     }
-
-});
+);
 
 </script>
 
 </body>
 </html>
+```
